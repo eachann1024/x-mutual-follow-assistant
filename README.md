@@ -2,7 +2,7 @@
 
 ## 使用方式（用户）
 
-在 Telegram 里可以直接这样说：
+在 Telegram 里直接说：
 
 ```text
 帮我安装 https://github.com/eachann1024/x-mutual-follow-assistant 这个技能
@@ -14,7 +14,7 @@
 帮我定时执行，每天执行两次，分别是下午 1:30 和下午 6:30
 ```
 
-首次执行时，机器人会向你确认这些信息：
+首次执行时，机器人会确认：
 - 发帖位置（社区 / 首页）
 - 社区链接（发社区时需要）
 - 是否配图（如要，提供本地图片路径）
@@ -34,11 +34,10 @@
 
 ## 安装说明（OpenClaw）
 
-1. 拉取仓库到本机（建议放在 `~/Work/`）。
-2. 将技能目录放到 **当前 OpenClaw 实例的 skills 目录**（以你本机实际实例路径为准，不写死）。
-3. 复制 `runtime-config.example.json` 为 `runtime-config.json`。
-4. 在 OpenClaw 浏览器（`profile=openclaw`）登录 X。
-5. 在聊天中执行：`执行 x 互关技能`。
+1. 将本技能放入**当前 OpenClaw 实例的 skills 目录**（使用你本机实例路径，不写死）。
+2. 复制 `runtime-config.example.json` 为 `runtime-config.json`。
+3. 在 OpenClaw 浏览器（`profile=openclaw`）登录 X。
+4. 在聊天中执行：`执行 x 互关技能`。
 
 ---
 
