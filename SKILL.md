@@ -17,22 +17,20 @@ Publish and maintain X “mutual follow” campaigns with safe pacing and repeat
 6. Save new post URL as next run's previous post.
 7. Report outcomes + token usage summary.
 
-## Step 1 — First-Run Intake (must ask)
+## Step 1 — First-Run Intake (must ask, fixed template)
 
-Ask these questions before the first execution in a session:
+Before first execution, ask with this structure (Simplified Chinese):
 
-1. Need images or text-only?
-   - If images are needed, collect one or more local paths such as `~/Downloads/fileName.png`.
-2. Post target?
-   - `community`: require community URL (example: `https://x.com/i/communities/1669241668829323264`)
-   - `home`: publish on profile/home feed.
-3. Rate limit?
-   - Collect max follows per time window (example: 20 per hour).
-4. Optional allow/deny rules?
-   - Whitelist handles (always prioritize)
-   - Blacklist handles/patterns (always skip)
+1. 发帖位置：社区 / 首页
+2. 若选社区：社区链接（`https://x.com/i/communities/...`）
+3. 是否配图：不要 / 要（要则给本地路径，如 `~/Desktop/x.jpeg`）
+4. 回关限频：默认每小时 20，可自定义
+5. 提醒用户先在 `openclaw` 浏览器里登录 X（不阻塞流程）
 
-Reuse saved answers unless the user asks to change them.
+Rules:
+- Reuse persisted values unless user requests changes.
+- If user gives only 1-3 items, ask only the missing required items.
+- Do not force whitelist/blacklist collection on first run; treat as optional advanced config.
 
 ## Step 2 — Copy Generation Rules
 

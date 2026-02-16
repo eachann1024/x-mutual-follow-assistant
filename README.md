@@ -1,88 +1,73 @@
-# X Mutual Follow Assistant
+# X 互关技能（OpenClaw）
 
-一个用于 **X（Twitter）互关活动** 的浏览器自动化技能（简体中文）。
+## 给用户看的最简使用教程（放顶部）
 
-核心流程固定：
-1. 先处理上一条活动帖的回复（优先蓝V）
-2. 按限额执行回关
-3. 生成新文案并发布下一条活动帖
-4. 保存新帖链接，供下次继续处理
+### 1）先安装技能
+在 Telegram 发：
 
----
-
-## 最小安装（OpenClaw）
-
-1. 把本目录放到你的 skills 目录（示例）：
-   - `~/.agents/skills/x-mutual-follow-assistant/`
-2. 创建运行配置文件：
-   - 复制 `runtime-config.example.json` 为 `runtime-config.json`
-3. 在 OpenClaw 中执行：
-   - `执行 x 互关技能`
-
-> 依赖：
-> - 可用的 OpenClaw `browser` 工具
-> - 已登录的 X 账号（openclaw 浏览器 profile）
-
----
-
-## 配置文件（runtime-config.json）
-
-关键字段：
-- `targetMode`: `community` 或 `home`
-- `communityUrl`: 当 `targetMode=community` 时必填
-- `imagePaths`: 图片本地路径数组（可空）
-- `rateLimit.maxFollows / perMinutes`: 回关限额
-- `whitelist / blacklist`: 白名单/黑名单
-- `state.lastPostUrl`: 上一条活动帖 URL
-
----
-
-## 使用方式
-
-### 1) 预览模式（不发帖、不回关）
-让代理先给你：
-- 本轮将处理的上一条帖子
-- 预计回关计划
-- 新文案草稿
-
-### 2) 执行模式（正式跑）
-让代理执行完整流程：
-- 先处理上一条回复并回关
-- 再发布新帖
-- 最后更新 `state.lastPostUrl`
-
----
-
-## 运行结果（建议输出）
-
-每次运行都应包含：
-- 已处理的上一条帖子 URL
-- 识别到的蓝V候选数
-- 本轮已回关数量
-- 因限额延期数量
-- 新发布帖子 URL
-- 本轮 token 消耗（可估算）
-
----
-
-## 边界与降级策略
-
-- 图片路径失效：本轮自动降级为纯文案发帖，并提示你补发正确图片路径
-- 不回显底层报错：只输出业务结论（发生了什么/影响是什么/下一步）
-- 严格限速：避免突发批量操作
-
----
-
-## GitHub 公开发布（最小步骤）
-
-在本目录执行：
-
-```bash
-git init
-git add .
-git commit -m "feat: init x mutual follow assistant"
-gh repo create x-mutual-follow-assistant --public --source . --remote origin --push
+```text
+帮我安装 https://github.com/eachann1024/x-mutual-follow-assistant 这个技能
 ```
 
-发布后仓库地址形如：
-- `https://github.com/<你的用户名>/x-mutual-follow-assistant`
+### 2）安装后让 OpenClaw 定时跑
+在 Telegram 发：
+
+```text
+帮我定时执行，每天执行两次，分别是下午 1:30 和下午 6:30
+```
+
+OpenClaw 首次会这样问你（固定 5 项）：
+
+```text
+我现在就能执行。先给我这 4 个值（首次必填），我拿到后会持久化保存到技能中：
+1. 发帖位置：社区 还是 首页
+2. 如果是社区：发帖链接（例如 https://x.com/i/communities/...）
+3. 要不要配图：不要 / 要（要的话给图片路径，如 ~/Downloads/a.png）
+4. 回关限频（可选默认 20）：例如“每小时最多 20 人”
+5. 在 openclaw 的浏览器中登录 X（不阻塞）
+你回复这四项后，我直接开始执行并回报结果 + 本次 token 消耗。
+```
+
+你的回复示例：
+
+```text
+1 社区
+2 https://x.com/i/communities/1669241668829323264
+3 配图，图片地址是：~/Desktop/x.jpeg
+4 每小时最多 20 人
+```
+
+---
+
+## 给机器人（OpenClaw）看的最小安装说明
+
+1. 拉取仓库到本机（建议放 `~/Work/`）
+2. 将技能目录放到 OpenClaw skills 路径
+3. 复制 `runtime-config.example.json` 为 `runtime-config.json`
+4. 在 OpenClaw 浏览器（`profile=openclaw`）中登录 X
+5. 执行：`执行 x 互关技能`
+
+---
+
+## 持久化说明（/new 后仍保留）
+
+- 运行配置/状态：`runtime-config.json`
+- 技能执行规则：`SKILL.md`
+
+只要这两个文件还在，`/new` 后也会继续按原配置执行。
+
+---
+
+## 输出标准（每次执行后）
+
+必须返回：
+- 处理的上一条帖子 URL
+- 蓝V候选数
+- 本轮回关数
+- 限频延期数
+- 新帖子 URL
+- 本次 token 消耗
+
+如果图片路径失效：
+- 本轮自动降级纯文案
+- 同时明确引导用户补发正确图片路径
