@@ -1,0 +1,18 @@
+{
+  "targetMode": "community",
+  "communityUrl": "https://x.com/i/communities/1669241668829323264",
+  "imagePaths": [
+    "~/Desktop/x.jpeg"
+  ],
+  "rateLimit": {
+    "maxFollows": 20,
+    "perMinutes": 1440
+  },
+  "whitelist": [],
+  "blacklist": [],
+  "state": {
+    "lastPostUrl": "",
+    "processedUsers": [],
+    "followQueue": []
+  }
+}
