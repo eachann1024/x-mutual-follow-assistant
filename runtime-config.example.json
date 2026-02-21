@@ -1,6 +1,9 @@
 {
   "communityUrl": "https://x.com/virtuals_io/status/2021971168878903699",
 
+  "browserBackend": "auto",
+  "cdpPort": 9222,
+
   "followBackScrollPages": 4,
   "hoverCardScrollPages": 6,
   "hoverCardMaxFollowsTotal": 30,

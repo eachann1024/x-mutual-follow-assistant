@@ -11,11 +11,13 @@ description: "X 社区互关技能：发帖 + 回关 + 悬浮卡关注。默认�
 1. **默认每次完整执行**：发帖 + 回关 + 悬浮卡关注。
 2. **滚动行为要抽象复用**：所有需要滚动的阶段都遵循同一套滚动循环。
 3. **媒体自动读取**：默认从 `./public/` 扫描媒体并上传；不反复质疑用户是否放了媒体。
-4. 遇到验证码/真人验证/登录要求：**停止自动化**，提示用户在 Chrome 手动完成后再继续；不尝试绕过。
+4. 遇到验证码/真人验证/登录要求：**停止自动化**，提示用户在任意浏览器手动完成后再继续；不尝试绕过。
 
-## 运行依赖（执行实现）
-- 使用 **agent-browser + CDP Chrome（9222）** 执行（不依赖 X API）。
-- 不再使用 `X_MUTUAL_FOLLOW_BROWSER_PROFILE=openclaw` 等旧 profile 环境变量。
+## 自动化执行通道（环境无关）
+- 本技能不强绑定某个浏览器、插件或 profile。
+- 只要求用户能在任意浏览器登录 X。
+- 可选执行后端：`cdp` / `playwright` / `openclaw-browser-relay`。
+- `browserBackend=auto`（默认）时，应按当前环境自动选择最可用通道。
 
 ---
 
@@ -29,6 +31,9 @@ description: "X 社区互关技能：发帖 + 回关 + 悬浮卡关注。默认�
 > - 用户说“仅本次”→ 不写回
 
 建议新增/使用的字段（示例见 `runtime-config.example.json`）：
+- `browserBackend`：`auto | cdp | playwright | openclaw-browser-relay`（默认 `auto`）
+- `cdpPort`：CDP 端口（可选，默认 9222）
+- `browserProfile`：可选，仅在特定后端/场景需要时提供
 - `followBackScrollPages`：回关滚动页数（默认 4）
 - `hoverCardScrollPages`：社区页悬浮卡关注滚动页数（默认 6）
 - `hoverCardMaxFollowsTotal`：悬浮卡阶段最多关注数（默认 30；0 表示不限制）
@@ -115,6 +120,7 @@ description: "X 社区互关技能：发帖 + 回关 + 悬浮卡关注。默认�
 ## 6) 执行前知情清单（必须确认）
 开始任何浏览器动作前，先发给用户一份清单并等待确认：
 - 是否完整执行三阶段（默认全开）
+- 当前 browser backend（auto/cdp/playwright/openclaw-browser-relay）
 - 回关页数（followBackScrollPages）
 - 悬浮卡页数（hoverCardScrollPages）+ 总关注上限（hoverCardMaxFollowsTotal）
 - 节奏（delayMsRange）
