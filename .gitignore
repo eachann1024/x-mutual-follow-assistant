@@ -1,2 +1,7 @@
 runtime-config.json
 .DS_Store
+
+# local run artifacts
+followback-proof-*.png
+run-once-*.md
+run-*.md
