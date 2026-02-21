@@ -1,4 +1,5 @@
 runtime-config.json
+.env
 .DS_Store
 
 # local run artifacts

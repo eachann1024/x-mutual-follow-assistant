@@ -9,10 +9,15 @@
 
 > 建议：全局技能才是单一真相（不要在工作区放第二份副本）。
 
-## 2) 配置（会持久化）
+## 2) 配置（本地文件策略）
 复制配置模板：
 
 - `runtime-config.example.json` → `runtime-config.json`
+
+本地文件说明：
+- `runtime-config.json`：本地持久化配置，**不入库**（仓库只保留模板）。
+- `.env`：可选本地覆盖项，**不入库**；如需可从 `.env.example` 复制。
+- 当前实现以 **agent-browser + CDP** 为准，已不再使用 `X_MUTUAL_FOLLOW_BROWSER_PROFILE=openclaw` 这类旧变量。
 
 常用字段：
 - `communityUrl`
