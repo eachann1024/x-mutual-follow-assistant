@@ -1,18 +1,22 @@
 {
-  "targetMode": "community",
-  "communityUrl": "https://x.com/i/communities/1669241668829323264",
-  "imagePaths": [
-    "~/Desktop/x.jpeg"
-  ],
-  "rateLimit": {
-    "maxFollows": 20,
-    "perMinutes": 1440
+  "communityUrl": "https://x.com/virtuals_io/status/2021971168878903699",
+
+  "followBackScrollPages": 4,
+  "hoverCardScrollPages": 6,
+  "hoverCardMaxFollowsTotal": 30,
+
+  "delayMsRange": {
+    "min": 500,
+    "max": 700
   },
-  "whitelist": [],
-  "blacklist": [],
+
+  "enableStages": {
+    "post": true,
+    "followBack": true,
+    "hoverCardFollow": true
+  },
+
   "state": {
-    "lastPostUrl": "",
-    "processedUsers": [],
-    "followQueue": []
+    "lastPostUrl": ""
   }
 }

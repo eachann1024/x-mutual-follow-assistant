@@ -1,33 +1,33 @@
-# Runtime Config Schema
+# Runtime Config Schema（运行时配置）
 
-Use this schema to persist workflow settings.
+> `runtime-config.json`：用户本地持久化配置（可长期修改）
+> 
+> `runtime-config.example.json`：仓库内模板。
 
 ```json
 {
-  "targetMode": "community | home",
-  "communityUrl": "https://x.com/i/communities/... (required when targetMode=community)",
-  "imagePaths": ["~/Downloads/file1.png", "~/Downloads/file2.png"],
-  "rateLimit": {
-    "maxFollows": 20,
-    "perMinutes": 60
+  "communityUrl": "https://x.com/virtuals_io/status/...",
+
+  "followBackScrollPages": 4,
+  "hoverCardScrollPages": 6,
+  "hoverCardMaxFollowsTotal": 30,
+
+  "delayMsRange": { "min": 500, "max": 700 },
+
+  "enableStages": {
+    "post": true,
+    "followBack": true,
+    "hoverCardFollow": true
   },
-  "whitelist": ["@trusted1", "@trusted2"],
-  "blacklist": ["@spam1", "pattern:airdrop", "pattern:nsfw"],
-  "schedule": {
-    "pollRepliesEveryMinutes": 15,
-    "followRunEveryMinutes": 30
-  },
+
   "state": {
-    "lastPostUrl": "",
-    "processedUsers": [],
-    "followQueue": []
+    "lastPostUrl": ""
   }
 }
 ```
 
 ## Validation Rules
-- `communityUrl` must be present if `targetMode=community`.
-- `imagePaths` may be empty for text-only posts.
-- `maxFollows` must be > 0.
-- `perMinutes` should be >= 15.
-- `blacklist` and `whitelist` should be deduplicated.
+- `communityUrl` 必须是一个可访问的 X 帖子 URL。
+- `followBackScrollPages` / `hoverCardScrollPages` 建议 >= 1。
+- `hoverCardMaxFollowsTotal`：0 表示不限制；否则建议 1-200。
+- `delayMsRange.min/max`：建议 200ms 以上，避免过猛触发风控。
